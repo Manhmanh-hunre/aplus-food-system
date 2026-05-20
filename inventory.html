@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A+ Food | Tồn kho</title>
+  <link rel="stylesheet" href="assets/styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="Supabase.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">A+</span>
+        <span><strong>A+ Food</strong><span>Quản lý cửa hàng</span></span>
+      </a>
+      <nav class="nav">
+        <a href="index.html"><img class="icon" src="assets/icons/dashboard.svg" alt="">Tổng quan</a>
+        <a href="products.html"><img class="icon" src="assets/icons/products.svg" alt="">Sản phẩm</a>
+        <a href="orders.html"><img class="icon" src="assets/icons/orders.svg" alt="">Bán hàng</a>
+        <a class="active" href="inventory.html"><img class="icon" src="assets/icons/inventory.svg" alt="">Tồn kho</a>
+        <a href="reports.html"><img class="icon" src="assets/icons/reports.svg" alt="">Báo cáo</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="page-title">
+          <h1>Quản lý tồn kho</h1>
+          <p>Theo dõi nhập hàng, hạn dùng, định mức tồn và vị trí lưu trữ.</p>
+        </div>
+        <div class="actions">
+          <button class="btn"><img class="icon" src="assets/icons/filter.svg" alt="">Đối soát</button>
+          <button class="btn primary"><img class="icon" src="assets/icons/plus.svg" alt="">Tạo phiếu nhập</button>
+        </div>
+      </header>
+
+      <section class="grid cols-3">
+        <article class="panel stat"><span>Tổng SKU</span><strong>428</strong><small>312 SKU đang bán</small></article>
+        <article class="panel stat"><span>Giá trị kho</span><strong>412tr</strong><small>Không gồm hàng ký gửi</small></article>
+        <article class="panel stat"><span>Lô sắp hết hạn</span><strong>9</strong><small>Cần xử lý trong 5 ngày</small></article>
+      </section>
+
+      <section class="grid cols-2" style="margin-top:18px">
+        <article class="panel pad">
+          <div class="section-head">
+            <div>
+              <h2>Nhập hàng hôm nay</h2>
+              <p>Danh sách lô hàng đang chờ xác nhận.</p>
+            </div>
+          </div>
+          <div class="stock-row"><div><strong>Rau ăn lá hữu cơ</strong><p class="muted">Nhà cung cấp Green Farm</p></div><span class="badge good">60kg</span></div>
+          <div class="stock-row"><div><strong>Sữa hạt không đường</strong><p class="muted">Lô SX-0526-A</p></div><span class="badge">84 hộp</span></div>
+          <div class="stock-row"><div><strong>Bánh snack nhập khẩu</strong><p class="muted">Kiểm đếm theo thùng</p></div><span class="badge">12 thùng</span></div>
+        </article>
+
+        <article class="panel">
+          <img class="feature-image" src="https://images.pexels.com/photos/27939228/pexels-photo-27939228.jpeg?cs=srgb&amp;dl=pexels-allen-boguslavsky-1344061-27939228.jpg&amp;fm=jpg" alt="Kệ hàng đóng gói trong siêu thị">
+        </article>
+      </section>
+
+      <section class="panel" style="margin-top:18px">
+        <div class="section-head" style="padding:20px 20px 0">
+          <div>
+            <h2>Bảng tồn kho</h2>
+            <p>Số liệu mẫu theo vị trí lưu trữ và hạn dùng.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>SKU</th><th>Sản phẩm</th><th>Vị trí</th><th>Tồn thực tế</th><th>Hạn dùng</th><th>Mức xử lý</th></tr></thead>
+            <tbody>
+              <tr><td>VG-1024</td><td>Rau cải bó xôi</td><td>Kho mát A1</td><td>36kg</td><td>18/05/2026</td><td><span class="badge good">Luân chuyển nhanh</span></td></tr>
+              <tr><td>DR-2208</td><td>Snack khoai vị muối</td><td>Kệ D3</td><td>128 gói</td><td>12/09/2026</td><td><span class="badge">Ổn định</span></td></tr>
+              <tr><td>ML-0712</td><td>Sữa hạt không đường</td><td>Kho khô B2</td><td>84 hộp</td><td>24/05/2026</td><td><span class="badge">Theo dõi hạn</span></td></tr>
+              <tr><td>FR-0310</td><td>Táo nhập khẩu</td><td>Kho mát A2</td><td>18kg</td><td>20/05/2026</td><td><span class="badge">Đẩy bán</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <p class="source-note">Ảnh demo thật: Pexels, Allen Boguslavsky. Icon: SVG nội bộ trong thư mục assets/icons.</p>
+    </main>
+  </div>
+</body>
+</html>

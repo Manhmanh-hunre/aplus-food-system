@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A+ Food | Đăng nhập</title>
+  <link rel="stylesheet" href="assets/styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="Supabase.js"></script>
+</head>
+<body class="no-scroll-page">
+  <main class="login-page">
+    <section class="login-visual">
+      <img src="https://images.pexels.com/photos/31088708/pexels-photo-31088708.jpeg?cs=srgb&amp;fm=jpg&amp;w=1400" alt="Bếp nhà hàng đang chuẩn bị món ăn">
+      <div class="login-copy">
+        <h1>A+ Food</h1>
+        <p>Hệ thống quản lý cửa hàng thực phẩm và order món ăn cho nhân viên vận hành, thu ngân, bếp và quản lý.</p>
+      </div>
+    </section>
+    <section class="login-form-wrap">
+      <div class="login-card panel pad">
+        <div class="section-head">
+          <div>
+            <h2>Đăng nhập hệ thống</h2>
+            <p>Nhập tài khoản được cấp để vào trang quản trị.</p>
+          </div>
+        </div>
+        <form class="form-grid" id="login-form" >
+          
+          <div class="field">
+            <label for="email">Tài khoản</label>
+            <input id="email" type="email" value="admin@aplusfood.vn">
+          </div>
+          <div class="field">
+            <label for="password">Mật khẩu</label>
+            <input id="password" type="password" value="aplusfood">
+          </div>
+          <div class="field">
+            <label for="branch">Chi nhánh</label>
+            <select id="branch">
+              <option>A+ Food Nguyễn Trãi</option>
+              <option>A+ Food Cầu Giấy</option>
+              <option>A+ Food Thảo Điền</option>
+            </select>
+          </div>
+          <button type="submit"></button>
+          <p class="muted">Demo tĩnh, nút đăng nhập chuyển sang giao diện hệ thống.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <script>
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault(); // Ngăn trang bị F5 lại
+    
+    const emailInput = document.getElementById('email').value;
+    const passwordInput = document.getElementById('password').value;
+
+    // Truy vấn kiểm tra tài khoản (Tên bảng và cột đều viết thường)
+    const { data: user, error } = await supabase
+      .from('taikhoan')
+      .select('*')
+      .eq('email', emailInput)
+      .eq('matkhau', passwordInput)
+      .single();
+
+    if (error || !user) {
+      alert('Sai tài khoản hoặc mật khẩu, vui lòng kiểm tra lại!');
+    } else {
+      alert('Đăng nhập thành công chi nhánh: ' + document.getElementById('branch').value);
+      // Chuyển hướng sang trang tổng quan hệ thống
+      window.location.href = 'system.html';
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A+ Food | Báo cáo doanh thu</title>
+  <link rel="stylesheet" href="assets/styles.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="Supabase.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="system.html"><span class="brand-mark">A+</span><span><strong>A+ Food</strong><span>Quản lý cửa hàng</span></span></a>
+      <nav class="nav">
+        <a href="system.html"><img class="icon" src="assets/icons/dashboard.svg" alt="">Hệ thống</a>
+        <a href="employees.html"><img class="icon" src="assets/icons/users.svg" alt="">Nhân viên</a>
+        <a href="menu.html"><img class="icon" src="assets/icons/menu.svg" alt="">Menu</a>
+        <a href="food-order.html"><img class="icon" src="assets/icons/orders.svg" alt="">Order đồ ăn</a>
+        <a href="invoices.html"><img class="icon" src="assets/icons/card.svg" alt="">Hóa đơn</a>
+        <a href="ingredient-stock.html"><img class="icon" src="assets/icons/inventory.svg" alt="">Kho nguyên liệu</a>
+        <a href="best-sellers.html"><img class="icon" src="assets/icons/reports.svg" alt="">Món bán chạy</a>
+        <a class="active" href="revenue-report.html"><img class="icon" src="assets/icons/reports.svg" alt="">Doanh thu</a>
+        <a href="permissions.html"><img class="icon" src="assets/icons/shield.svg" alt="">Phân quyền</a>
+        <a href="reviews.html"><img class="icon" src="assets/icons/message.svg" alt="">Đánh giá</a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div class="page-title"><h1>Xem báo cáo doanh thu</h1><p>Tổng hợp doanh thu theo ngày, kênh bán và phương thức thanh toán.</p></div><div class="actions"><select class="btn"><option>Tháng 05/2026</option><option>Quý 2/2026</option></select><button class="btn"><img class="icon" src="assets/icons/print.svg" alt="">Xuất file</button></div></header>
+      <section class="grid cols-4">
+        <article class="panel stat"><span>Tổng doanh thu</span><strong>486tr</strong><small>Tháng hiện tại</small></article>
+        <article class="panel stat"><span>Lợi nhuận gộp</span><strong>151tr</strong><small>Biên 31%</small></article>
+        <article class="panel stat"><span>Số hóa đơn</span><strong>3.184</strong><small>Trung bình 154k</small></article>
+        <article class="panel stat"><span>Hủy</span><strong>2,1%</strong><small>Trong ngưỡng cho phép</small></article>
+      </section>
+      <section class="grid cols-2" style="margin-top:18px">
+        <article class="panel pad"><div class="section-head"><div><h2>Doanh thu theo kênh</h2><p>So sánh bán tại quầy và giao hàng.</p></div></div><div class="bar-chart">
+          <div class="bar-row"><span>Tại quầy</span><div class="bar-track"><div class="bar" style="width:88%"></div></div><strong>312tr</strong></div>
+          <div class="bar-row"><span>Mang về </span><div class="bar-track"><div class="bar" style="width:49%"></div></div><strong>126tr</strong></div>
+          <div class="bar-row"><span>Đặt trước</span><div class="bar-track"><div class="bar" style="width:18%"></div></div><strong>48tr</strong></div>
+        </div></article>
+        <article class="panel pad"><div class="section-head"><div><h2>Thanh toán</h2><p>Cơ cấu phương thức thu tiền.</p></div></div><div class="mini-list">
+          <div class="mini-row"><span>Chuyển khoản</span><strong>46%</strong></div>
+          <div class="mini-row"><span>Thẻ</span><strong>31%</strong></div>
+          <div class="mini-row"><span>Tiền mặt</span><strong>23%</strong></div>
+        </div></article>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

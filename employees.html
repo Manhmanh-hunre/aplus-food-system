@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A+ Food | Quản lý nhân viên & Bảng công</title>
+  <link rel="stylesheet" href="assets/styles.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> 
+  <script src="Supabase.js"></script>
+</head>
+
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="system.html">
+        <span class="brand-mark">A+</span>
+        <span><strong>A+ Food</strong><span>Quản lý cửa hàng</span></span>
+      </a>
+      <nav class="nav">
+        <a href="system.html"><img class="icon" src="assets/icons/dashboard.svg" alt="">Hệ thống</a>
+        <a class="active" href="employees.html"><img class="icon" src="assets/icons/users.svg" alt="">Nhân viên</a>
+        <a href="timesheet.html"><img class="icon" src="assets/icons/calendar.svg" alt="">Bảng công</a>
+        <a href="menu.html"><img class="icon" src="assets/icons/menu.svg" alt="">Menu</a>
+        <a href="food-order.html"><img class="icon" src="assets/icons/orders.svg" alt="">Order đồ ăn</a>
+        <a href="invoices.html"><img class="icon" src="assets/icons/card.svg" alt="">Hóa đơn</a>
+        <a href="ingredient-stock.html"><img class="icon" src="assets/icons/inventory.svg" alt="">Kho nguyên liệu</a>
+        <a href="best-sellers.html"><img class="icon" src="assets/icons/reports.svg" alt="">Món bán chạy</a>
+        <a href="revenue-report.html"><img class="icon" src="assets/icons/reports.svg" alt="">Doanh thu</a>
+        <a href="permissions.html"><img class="icon" src="assets/icons/shield.svg" alt="">Phân quyền</a>
+        <a href="reviews.html"><img class="icon" src="assets/icons/message.svg" alt="">Đánh giá</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="page-title">
+          <h1>Quản lý nhân viên</h1>
+          <p>Theo dõi hồ sơ, vai trò, ca làm, trạng thái làm việc và bảng chấm công.</p>
+        </div>
+        <div class="actions">
+          <label class="search">
+            <img class="icon" src="assets/icons/search.svg" alt="">
+            <input type="search" placeholder="Tìm nhân viên">
+          </label>
+          <button class="btn primary">
+            <img class="icon" src="assets/icons/plus.svg" alt="">Thêm nhân viên
+          </button>
+        </div>
+      </header>
+
+      <section class="staff-grid">
+        <article class="panel staff-card">
+          <div class="staff-top">
+            <div class="avatar">MA</div>
+            <div><strong>Mai Anh</strong><p class="muted">Quản lý cửa hàng</p></div>
+          </div>
+          <span class="badge good">Đang làm</span>
+        </article>
+        <article class="panel staff-card">
+          <div class="staff-top">
+            <div class="avatar">HN</div>
+            <div><strong>Hoàng Nam</strong><p class="muted">Thu ngân</p></div>
+          </div>
+          <span class="badge good">Ca sáng</span>
+        </article>
+        <article class="panel staff-card">
+          <div class="staff-top">
+            <div class="avatar">LT</div>
+            <div><strong>Lan Trang</strong><p class="muted">Bếp chính</p></div>
+          </div>
+          <span class="badge">Ca chiều</span>
+        </article>
+      </section>
+
+      <section class="panel" style="margin-top:18px">
+        <div class="section-head" style="padding:20px 20px 0">
+          <div>
+            <h2>Danh sách nhân viên</h2>
+            <p>Thông tin hồ sơ nhân sự cơ bản được đồng bộ từ dữ liệu đám mây.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Mã NV</th>
+                <th>Họ tên</th>
+                <th>Vai trò / Chức vụ</th>
+                <th>Lương / Giờ</th>
+                <th>Tổng giờ làm</th>
+                <th>Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody id="nhanvien-table-body">
+              </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel" style="margin-top:24px">
+        <div class="section-head" style="padding:20px 20px 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #f1f5f9;">
+          <div>
+            <h2>Quản lý công & Tính lương nhân sự</h2>
+            <p>Theo dõi chi tiết số giờ làm việc, chức vụ và lương thực nhận theo tháng.</p>
+          </div>
+          <div class="actions" style="display: flex; gap: 8px;">
+            <select id="nhan-vien-select" class="form-control" style="padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 6px; outline: none; background: white; font-weight: 500;">
+              <option value="">-- Đang tải nhân sự --</option>
+            </select>
+            <input type="month" value="2026-05" class="form-control" style="padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 6px; outline: none; font-weight: 500;">
+            <button class="btn" style="border: 1px solid #e2e8f0; background: white; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Xuất Excel</button>
+          </div>
+        </div>
+
+        <div class="summary-widgets" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; padding: 20px;">
+          
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 16px; border-radius: 8px;">
+            <span style="font-size: 13px; color: #64748b; font-weight: 500; display: block; margin-bottom: 6px;">Thông tin nhân sự</span>
+            <strong id="chuc-vu" style="font-size: 18px; color: #0f172a; display: block;">Chức vụ: --</strong>
+            <small id="muc-luong" style="color: #64748b; display: block; margin-top: 4px; font-size: 12px;">Mức lương: --</small>
+          </div>
+
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 16px; border-radius: 8px;">
+            <span style="font-size: 13px; color: #64748b; font-weight: 500; display: block; margin-bottom: 6px;">Tổng giờ làm thực tế</span>
+            <strong id="tong-gio" style="font-size: 24px; color: #0f172a;">0 giờ</strong>
+            <small id="ngay-cong" style="color: #10b981; display: block; margin-top: 4px; font-size: 12px;">➔ 0 ngày công quy đổi</small>
+          </div>
+
+          <div style="background: #ecfdf5; border: 1px solid #a7f3d0; padding: 16px; border-radius: 8px;">
+            <span style="font-size: 13px; color: #065f46; font-weight: 500; display: block; margin-bottom: 6px;">Lương tạm tính tháng này</span>
+            <strong id="tong-luong" style="font-size: 24px; color: #047857;">0đ</strong>
+            <small style="color: #065f46; display: block; margin-top: 4px; font-size: 12px;">Chưa bao gồm thưởng/phạt</small>
+          </div>
+
+          <div style="background: #fffbeb; border: 1px solid #fef3c7; padding: 16px; border-radius: 8px;">
+            <span style="font-size: 13px; color: #b45309; font-weight: 500; display: block; margin-bottom: 6px;">Số ngày nghỉ tháng này</span>
+            <strong style="font-size: 24px; color: #d97706;">2 ngày</strong>
+            <div style="display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;">
+              <span style="background: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 4px; font-size: 11px;">Ngày 04/05</span>
+              <span style="background: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 4px; font-size: 11px;">Ngày 12/05</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="table-wrap" style="max-height: 350px; overflow-y: auto; border-top: 1px solid #e2e8f0;">
+          <table>
+            <thead>
+              <tr>
+                <th>Ngày</th>
+                <th>Ca đăng ký</th>
+                <th>Trạng thái công</th>
+                <th>Số giờ làm</th>
+                <th>Ghi chú</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01/05/2026</td>
+                <td>Full day</td>
+                <td><span class="badge good" style="background: #def7ec; color: #03543f; padding: 4px 8px; border-radius: 4px;">Đủ công</span></td>
+                <td><strong>8.0 giờ</strong></td>
+                <td>Hệ thống chấm vân tay ghi nhận</td>
+              </tr>
+              <tr>
+                <td>02/05/2026</td>
+                <td>Full day</td>
+                <td><span class="badge good" style="background: #def7ec; color: #03543f; padding: 4px 8px; border-radius: 4px;">Đủ công</span></td>
+                <td><strong>8.0 giờ</strong></td>
+                <td>Hệ thống chấm vân tay ghi nhận</td>
+              </tr>
+              <tr style="background: #fff5f5;">
+                <td>04/05/2026</td>
+                <td>Full day</td>
+                <td><span class="badge danger" style="background: #fde8e8; color: #9b1c1c; padding: 4px 8px; border-radius: 4px;">Nghỉ phép</span></td>
+                <td><strong>0 giờ</strong></td>
+                <td>Ốm có đơn xin phép ban quản lý</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Biến toàn cục lưu trữ danh sách nhân viên để dùng chung
+    let mangNhanVienToanCuc = [];
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      await taiDuLieuNhanVien();
+    });
+
+    async function taiDuLieuNhanVien() {
+      // 1. Lấy dữ liệu thực tế từ bảng 'nhanvien' (viết thường theo DB mới của bạn)
+      const { data: danhSachNV, error } = await supabase
+        .from('nhanvien')
+        .select('*')
+        .order('manv', { ascending: true });
+
+      if (error) {
+        console.error("Lỗi khi kết nối Supabase:", error.message);
+        return;
+      }
+
+      // Lưu trữ mảng vào biến toàn cục để hàm lọc sử dụng
+      mangNhanVienToanCuc = danhSachNV;
+
+      // 2. Đổ dữ liệu vào BẢNG DANH SÁCH phía trên
+      const tableBody = document.getElementById("nhanvien-table-body");
+      let tableHtml = "";
+
+      // 3. Đổ dữ liệu vào SELECT BOX tính lương phía dưới
+      const selectBox = document.getElementById("nhan-vien-select");
+      let selectHtml = "";
+
+      danhSachNV.forEach(nv => {
+        // Render dòng bảng dữ liệu
+        tableHtml += `
+          <tr>
+            <td>${nv.manv}</td>
+            <td><strong>${nv.hoten}</strong></td>
+            <td>${nv.chucvu || 'Chưa xếp'}</td>
+            <td>${Number(nv.luonggio).toLocaleString('vi-VN')}đ</td>
+            <td><strong>${nv.giolam} giờ</strong></td>
+            <td><span class="badge good">Hoạt động</span></td>
+          </tr>
+        `;
+
+        // Render option cho dropdown
+        selectHtml += `<option value="${nv.manv}">${nv.manv} - ${nv.hoten} (${nv.chucvu || 'Nhân viên'})</option>`;
+      });
+
+      tableBody.innerHTML = tableHtml;
+      selectBox.innerHTML = selectHtml;
+
+      // Chạy tính toán hiển thị mặc định cho nhân viên đầu tiên trong danh sách
+      capNhatDuLieu();
+    }
+
+    // Hàm xử lý khi người dùng thay đổi lựa chọn ở ô Selectbox nhân viên
+    function capNhatDuLieu() {
+      const idChon = document.getElementById("nhan-vien-select").value;
+      if (!idChon || mangNhanVienToanCuc.length === 0) return;
+
+      // Tìm kiếm thông tin đối tượng trong mảng toàn cục từ DB
+      const thongTin = mangNhanVienToanCuc.find(item => item.manv === idChon);
+
+      if (thongTin) {
+        // Cập nhật Chức vụ và Mức lương lên UI
+        document.getElementById("chuc-vu").innerText = "Chức vụ: " + (thongTin.chucvu || "Chưa gán");
+        document.getElementById("muc-luong").innerText = "Mức lương: " + Number(thongTin.luonggio).toLocaleString('vi-VN') + "đ / giờ";
+
+        // Cập nhật Giờ làm và ngày công quy đổi (8 tiếng = 1 ngày công)
+        document.getElementById("tong-gio").innerText = thongTin.giolam + " giờ";
+        
+        const soNgayCong = (thongTin.giolam / 8).toFixed(1);
+        document.getElementById("ngay-cong").innerText = "➔ " + soNgayCong + " ngày công quy đổi";
+
+        // Công thức tính lương động theo DB thực tế: Lương giờ * Tổng số giờ làm
+        const tongTienLuong = Number(thongTin.luonggio) * Number(thongTin.giolam);
+        document.getElementById("tong-luong").innerText = tongTienLuong.toLocaleString('vi-VN') + "đ";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A+ Food | Sản phẩm</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="Supabase.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">A+</span>
+        <span><strong>A+ Food</strong><span>Quản lý cửa hàng</span></span>
+      </a>
+      <nav class="nav">
+        <a href="index.html"><img class="icon" src="assets/icons/dashboard.svg" alt="">Tổng quan</a>
+        <a class="active" href="products.html"><img class="icon" src="assets/icons/products.svg" alt="">Sản phẩm</a>
+        <a href="orders.html"><img class="icon" src="assets/icons/orders.svg" alt="">Bán hàng</a>
+        <a href="inventory.html"><img class="icon" src="assets/icons/inventory.svg" alt="">Tồn kho</a>
+        <a href="reports.html"><img class="icon" src="assets/icons/reports.svg" alt="">Báo cáo</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="page-title">
+          <h1>Danh mục sản phẩm</h1>
+          <p>Quản lý giá bán, mã SKU, nhóm hàng và trạng thái kinh doanh.</p>
+        </div>
+        <div class="actions">
+          <label class="search">
+            <img class="icon" src="assets/icons/search.svg" alt="">
+            <input type="search" placeholder="Tìm theo tên hoặc SKU">
+          </label>
+          <button class="btn primary"><img class="icon" src="assets/icons/plus.svg" alt="">Thêm sản phẩm</button>
+        </div>
+      </header>
+
+      <section class="panel pad">
+        <div class="section-head">
+          <div>
+            <h2>Bộ lọc sản phẩm</h2>
+            <p>Lọc nhanh nhóm hàng, trạng thái và mức tồn.</p>
+          </div>
+          <button class="btn compact"><img class="icon" src="assets/icons/filter.svg" alt="">Lọc nâng cao</button>
+        </div>
+        <div class="filters">
+          <select><option>Tất cả nhóm hàng</option><option>Rau củ</option><option>Đồ khô</option><option>Đồ uống</option></select>
+          <select><option>Đang kinh doanh</option><option>Tạm ngưng</option></select>
+          <input type="text" placeholder="Khoảng giá">
+        </div>
+        <div class="catalog">
+          <article class="panel product-card">
+            <img src="https://images.unsplash.com/photo-1632082049294-eaa8f423bb2e?auto=format&amp;fit=crop&amp;fm=jpg&amp;ixlib=rb-4.1.0&amp;q=70&amp;w=900" alt="Rau xanh tươi trên kệ">
+            <div class="body">
+              <span class="badge good">Rau củ</span>
+              <h3>Rau ăn lá hữu cơ</h3>
+              <p class="muted">SKU: VG-1024, nhập mới mỗi sáng.</p>
+              <div class="price-row"><span class="price">38.000đ/kg</span><button class="btn compact">Sửa</button></div>
+            </div>
+          </article>
+          <article class="panel product-card">
+            <img src="https://images.pexels.com/photos/27939228/pexels-photo-27939228.jpeg?cs=srgb&amp;dl=pexels-allen-boguslavsky-1344061-27939228.jpg&amp;fm=jpg" alt="Kệ đồ ăn đóng gói trong siêu thị">
+            <div class="body">
+              <span class="badge">Đồ khô</span>
+              <h3>Bánh snack nhập khẩu</h3>
+              <p class="muted">SKU: DR-2208, kiểm hạn theo lô.</p>
+              <div class="price-row"><span class="price">29.000đ/gói</span><button class="btn compact">Sửa</button></div>
+            </div>
+          </article>
+          <article class="panel product-card">
+            <img src="https://images.pexels.com/photos/36772947/pexels-photo-36772947.jpeg?cs=srgb&amp;dl=pexels-radik-2707-170977881-36772947.jpg&amp;fm=jpg" alt="Quầy thanh toán có nhiều sản phẩm">
+            <div class="body">
+              <span class="badge">Combo</span>
+              <h3>Combo bữa nhanh</h3>
+              <p class="muted">SKU: CB-0311, áp dụng tại quầy.</p>
+              <div class="price-row"><span class="price">89.000đ</span><button class="btn compact">Sửa</button></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel" style="margin-top:18px">
+        <div class="section-head" style="padding:20px 20px 0">
+          <div>
+            <h2>Bảng giá chi tiết</h2>
+            <p>Các dòng sản phẩm đang mở bán tại A+ Food.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Sản phẩm</th><th>Nhóm</th><th>Giá bán</th><th>Tồn</th><th>Trạng thái</th></tr></thead>
+            <tbody>
+              <tr><td><div class="product-cell"><img class="product-thumb" src="https://images.unsplash.com/photo-1632082049294-eaa8f423bb2e?auto=format&amp;fit=crop&amp;q=60&amp;w=220" alt="">Rau cải bó xôi</div></td><td>Rau củ</td><td>42.000đ/kg</td><td>36kg</td><td><span class="badge good">Đang bán</span></td></tr>
+              <tr><td><div class="product-cell"><img class="product-thumb" src="https://images.pexels.com/photos/27939228/pexels-photo-27939228.jpeg?cs=srgb&amp;fm=jpg&amp;w=220" alt="">Snack khoai vị muối</div></td><td>Đồ khô</td><td>24.000đ</td><td>128 gói</td><td><span class="badge good">Đang bán</span></td></tr>
+              <tr><td><div class="product-cell"><img class="product-thumb" src="https://images.pexels.com/photos/36772947/pexels-photo-36772947.jpeg?cs=srgb&amp;fm=jpg&amp;w=220" alt="">Combo tiện lợi</div></td><td>Combo</td><td>89.000đ</td><td>42 phần</td><td><span class="badge">Theo ca</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <p class="source-note">Ảnh demo thật: Unsplash và Pexels. Icon: SVG nội bộ trong thư mục assets/icons.</p>
+    </main>
+  </div>
+</body>
+</html>

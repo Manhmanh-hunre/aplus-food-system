@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A+ Food | Order đồ ăn</title>
+  <link rel="stylesheet" href="assets/styles.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="Supabase.js"></script>
+  <button id="btn-xacnhan-order" class="btn primary" style="width:100%">Xác nhận order</button>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="system.html"><span class="brand-mark">A+</span><span><strong>A+ Food</strong><span>Quản lý cửa hàng</span></span></a>
+      <nav class="nav">
+        <a href="system.html"><img class="icon" src="assets/icons/dashboard.svg" alt="">Hệ thống</a>
+        <a href="employees.html"><img class="icon" src="assets/icons/users.svg" alt="">Nhân viên</a>
+        <a href="menu.html"><img class="icon" src="assets/icons/menu.svg" alt="">Menu</a>
+        <a class="active" href="food-order.html"><img class="icon" src="assets/icons/orders.svg" alt="">Order đồ ăn</a>
+        <a href="invoices.html"><img class="icon" src="assets/icons/card.svg" alt="">Hóa đơn</a>
+        <a href="ingredient-stock.html"><img class="icon" src="assets/icons/inventory.svg" alt="">Kho nguyên liệu</a>
+        <a href="best-sellers.html"><img class="icon" src="assets/icons/reports.svg" alt="">Món bán chạy</a>
+        <a href="revenue-report.html"><img class="icon" src="assets/icons/reports.svg" alt="">Doanh thu</a>
+        <a href="permissions.html"><img class="icon" src="assets/icons/shield.svg" alt="">Phân quyền</a>
+        <a href="reviews.html"><img class="icon" src="assets/icons/message.svg" alt="">Đánh giá</a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="page-title"><h1>Order đồ ăn</h1><p>Màn chọn món, giỏ hàng và theo dõi trạng thái bếp.</p></div>
+        <div class="actions"><button class="btn"><img class="icon" src="assets/icons/print.svg" alt="">In bếp</button><button class="btn primary"><img class="icon" src="assets/icons/card.svg" alt="">Gửi order</button></div>
+      </header>
+      <section class="pos-layout">
+        <div class="panel pad">
+          <div class="section-head"><div><h2>Menu order</h2><p>Chọn món đang mở bán tại ca hiện tại.</p></div><label class="search"><img class="icon" src="assets/icons/search.svg" alt=""><input type="search" placeholder="Tìm món"></label></div>
+          <div class="menu-grid">
+            <article class="menu-item"><img src="https://images.pexels.com/photos/34683316/pexels-photo-34683316.jpeg?cs=srgb&amp;fm=jpg&amp;w=700" alt="Phở bò"><h3>Phở bò A+ Food</h3><div class="price-row"><span class="price">69.000đ</span><span class="qty">+1</span></div></article>
+            <article class="menu-item"><img src="https://images.unsplash.com/photo-1562967916-eb82221dfb92?auto=format&amp;fit=crop&amp;q=70&amp;w=700" alt="Cơm gà"><h3>Cơm gà sốt mè</h3><div class="price-row"><span class="price">59.000đ</span><span class="qty">+1</span></div></article>
+            <article class="menu-item"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&amp;fit=crop&amp;q=70&amp;w=700" alt="Salad"><h3>Salad rau củ</h3><div class="price-row"><span class="price">49.000đ</span><span class="qty">+1</span></div></article>
+          </div>
+        </div>
+        <aside class="panel pad">
+          <div class="section-head"><div><h2>Giỏ order</h2><p>Bàn A04, khách lẻ.</p></div></div>
+          <div class="cart-list">
+            <div class="cart-row"><div><strong>Phở bò A+ Food</strong><p class="muted">2 phần</p></div><strong>138.000đ</strong></div>
+            <div class="cart-row"><div><strong>Salad rau củ</strong><p class="muted">1 phần</p></div><strong>49.000đ</strong></div>
+          </div>
+          <div class="total-box"><div class="total-row"><span>Tạm tính</span><strong>187.000đ</strong></div><div class="total-row final"><span>Khách trả</span><strong>187.000đ</strong></div><button class="btn primary" style="width:100%">Xác nhận order</button></div>
+        </aside>
+      </section>
+      <section class="order-board" style="margin-top:18px">
+        <article class="panel order-column"><h2>Chờ bếp</h2><div class="order-ticket"><strong>ORD-1021</strong><p class="muted">Bàn A02, 3 món</p></div></article>
+        <article class="panel order-column"><h2>Đang làm</h2><div class="order-ticket"><strong>ORD-1020</strong><p class="muted">Mang về, 2 món</p></div></article>
+        <article class="panel order-column"><h2>Hoàn tất</h2><div class="order-ticket"><strong>ORD-1019</strong><p class="muted">Bàn B01, đã phục vụ</p></div></article>
+      </section>
+    </main>
+  </div>
+  
+  <script>
+      // Lưu ý: M đệm này cần chạy khi bạn đã có mảng gioHang chứa các món ăn được click chọn
+      const btnXacNhan = document.getElementById('btn-xacnhan-order');
+      if (btnXacNhan) {
+        btnXacNhan.addEventListener('click', async () => {
+          // Kiểm tra nếu biến gioHang (giỏ hàng động bạn tự viết bằng JS) trống
+          if (typeof gioHang === 'undefined' || gioHang.length === 0) {
+            alert("Giỏ hàng đang trống!");
+            return;
+          }
+
+          const maDonHangMoi = "ORD-" + Date.now().toString().slice(-6);
+          const tongTienDonHang = gioHang.reduce((tong, item) => tong + (item.giaban * item.soluong), 0);
+
+          // 1. Ghi dữ liệu đơn hàng mới vào bảng 'donhang'
+          const { error: errorDonHang } = await supabase
+            .from('donhang')
+            .insert([
+              { 
+                madh: maDonHangMoi, 
+                tongtien: tongTienDonHang, 
+                trangthai: 'chobep', 
+                bankenh: 'Bàn A04',
+                makh: null,
+                manvbanhang: 'NV001'
+              }
+            ]);
+
+          if (errorDonHang) {
+            alert("Lỗi tạo đơn hàng trên database: " + errorDonHang.message);
+            return;
+          }
+
+          // 2. Chuẩn bị mảng chitietdonhang
+          const mangChiTiet = gioHang.map(item => ({
+            madh: maDonHangMoi,
+            mamon: item.mamon,
+            soluong: item.soluong,
+            giaban: item.giaban
+          }));
+
+          const { error: errorChiTiet } = await supabase
+            .from('chitietdonhang')
+            .insert(mangChiTiet);
+
+          if (errorChiTiet) {
+            alert("Lỗi lưu chi tiết đơn hàng: " + errorChiTiet.message);
+          } else {
+            alert(`Đã gửi đơn hàng ${maDonHangMoi} xuống bộ phận Bếp thành công!`);
+            gioHang = []; // Làm rỗng giỏ hàng sau khi đẩy lên database thành công
+            if (typeof capNhatGiaoDienGioHang === 'function') capNhatGiaoDienGioHang(); // Làm mới giao diện giỏ hàng của bạn
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
+</body>
+</html>
+

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A+ Food | Quản lý hóa đơn</title>
+  <link rel="stylesheet" href="assets/styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="Supabase.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="system.html"><span class="brand-mark">A+</span><span><strong>A+ Food</strong><span>Quản lý cửa hàng</span></span></a>
+      <nav class="nav">
+        <a href="system.html"><img class="icon" src="assets/icons/dashboard.svg" alt="">Hệ thống</a>
+        <a href="employees.html"><img class="icon" src="assets/icons/users.svg" alt="">Nhân viên</a>
+        <a href="menu.html"><img class="icon" src="assets/icons/menu.svg" alt="">Menu</a>
+        <a href="food-order.html"><img class="icon" src="assets/icons/orders.svg" alt="">Order đồ ăn</a>
+        <a class="active" href="invoices.html"><img class="icon" src="assets/icons/card.svg" alt="">Hóa đơn</a>
+        <a href="ingredient-stock.html"><img class="icon" src="assets/icons/inventory.svg" alt="">Kho nguyên liệu</a>
+        <a href="best-sellers.html"><img class="icon" src="assets/icons/reports.svg" alt="">Món bán chạy</a>
+        <a href="revenue-report.html"><img class="icon" src="assets/icons/reports.svg" alt="">Doanh thu</a>
+        <a href="permissions.html"><img class="icon" src="assets/icons/shield.svg" alt="">Phân quyền</a>
+        <a href="reviews.html"><img class="icon" src="assets/icons/message.svg" alt="">Đánh giá</a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div class="page-title"><h1>Quản lý hóa đơn</h1><p>Tra cứu hóa đơn, trạng thái thanh toán và yêu cầu hoàn hủy.</p></div><div class="actions"><label class="search"><img class="icon" src="assets/icons/search.svg" alt=""><input type="search" placeholder="Tìm mã hóa đơn"></label><button class="btn"><img class="icon" src="assets/icons/print.svg" alt="">In hóa đơn</button></div></header>
+      <section class="invoice-summary">
+        <div class="panel">
+          <div class="section-head" style="padding:20px 20px 0"><div><h2>Danh sách hóa đơn</h2><p>Các hóa đơn phát sinh trong ngày.</p></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Mã hóa đơn</th><th>Bàn/Kênh</th><th>Giờ</th><th>Tổng tiền</th><th>Trạng thái</th></tr></thead><tbody>
+            <tr><td>HD-20260516-108</td><td>Bàn A04</td><td>12:08</td><td>187.000đ</td><td><span class="badge good">Đã thanh toán</span></td></tr>
+            <tr><td>HD-20260516-107</td><td>Mang về</td><td>11:52</td><td>128.000đ</td><td><span class="badge good">Đã thanh toán</span></td></tr>
+            <tr><td>HD-20260516-106</td><td>Bàn B02</td><td>11:41</td><td>246.000đ</td><td><span class="badge">Chờ thu</span></td></tr>
+            <tr><td>HD-20260516-105</td><td>Giao hàng</td><td>11:28</td><td>318.000đ</td><td><span class="badge">Đối soát</span></td></tr>
+          </tbody></table></div>
+        </div>
+        <aside class="panel pad">
+          <div class="section-head"><div><h2>Chi tiết hóa đơn</h2><p>HD-20260516-108</p></div></div>
+          <div class="mini-list">
+            <div class="mini-row"><span>Phở bò A+ Food x2</span><strong>138.000đ</strong></div>
+            <div class="mini-row"><span>Salad rau củ x1</span><strong>49.000đ</strong></div>
+            <div class="mini-row"><span>Giảm giá</span><strong>0đ</strong></div>
+            <div class="mini-row"><span>Tổng thu</span><strong>187.000đ</strong></div>
+          </div>
+        </aside>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

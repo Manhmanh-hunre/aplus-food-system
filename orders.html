@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A+ Food | Bán hàng</title>
+  <link rel="stylesheet" href="assets/styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="Supabase.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">A+</span>
+        <span><strong>A+ Food</strong><span>Quản lý cửa hàng</span></span>
+      </a>
+      <nav class="nav">
+        <a href="index.html"><img class="icon" src="assets/icons/dashboard.svg" alt="">Tổng quan</a>
+        <a href="products.html"><img class="icon" src="assets/icons/products.svg" alt="">Sản phẩm</a>
+        <a class="active" href="orders.html"><img class="icon" src="assets/icons/orders.svg" alt="">Bán hàng</a>
+        <a href="inventory.html"><img class="icon" src="assets/icons/inventory.svg" alt="">Tồn kho</a>
+        <a href="reports.html"><img class="icon" src="assets/icons/reports.svg" alt="">Báo cáo</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="page-title">
+          <h1>Màn hình bán hàng</h1>
+          <p>Chọn sản phẩm, áp dụng thanh toán và in hóa đơn nhanh tại quầy.</p>
+        </div>
+        <div class="actions">
+          <button class="btn"><img class="icon" src="assets/icons/print.svg" alt="">In tạm tính</button>
+          <button class="btn primary"><img class="icon" src="assets/icons/card.svg" alt="">Thanh toán</button>
+        </div>
+      </header>
+
+      <section class="pos-layout">
+        <div class="panel pad">
+          <div class="section-head">
+            <div>
+              <h2>Chọn nhanh sản phẩm</h2>
+              <p>Các mặt hàng thường bán trong ca sáng.</p>
+            </div>
+            <label class="search">
+              <img class="icon" src="assets/icons/search.svg" alt="">
+              <input type="search" placeholder="Quét mã hoặc tìm sản phẩm">
+            </label>
+          </div>
+          <div class="menu-grid">
+            <article class="menu-item"><img src="https://images.unsplash.com/photo-1632082049294-eaa8f423bb2e?auto=format&amp;fit=crop&amp;q=70&amp;w=600" alt="Rau xanh"><h3>Rau ăn lá</h3><div class="price-row"><span class="price">38.000đ</span><span class="qty">+1</span></div></article>
+            <article class="menu-item"><img src="https://images.pexels.com/photos/27939228/pexels-photo-27939228.jpeg?cs=srgb&amp;fm=jpg&amp;w=600" alt="Đồ khô"><h3>Snack đóng gói</h3><div class="price-row"><span class="price">29.000đ</span><span class="qty">+1</span></div></article>
+            <article class="menu-item"><img src="https://images.pexels.com/photos/36772947/pexels-photo-36772947.jpeg?cs=srgb&amp;fm=jpg&amp;w=600" alt="Combo tại quầy"><h3>Combo bữa nhanh</h3><div class="price-row"><span class="price">89.000đ</span><span class="qty">+1</span></div></article>
+            <article class="menu-item"><img src="https://images.unsplash.com/photo-1632082049294-eaa8f423bb2e?auto=format&amp;fit=crop&amp;q=65&amp;w=601" alt="Rau gia vị"><h3>Rau gia vị</h3><div class="price-row"><span class="price">18.000đ</span><span class="qty">+1</span></div></article>
+            <article class="menu-item"><img src="https://images.pexels.com/photos/27939229/pexels-photo-27939229.jpeg?cs=srgb&amp;fm=jpg&amp;w=600" alt="Bánh ngọt đóng gói"><h3>Bánh ngọt đóng gói</h3><div class="price-row"><span class="price">35.000đ</span><span class="qty">+1</span></div></article>
+            <article class="menu-item"><img src="https://images.pexels.com/photos/36772947/pexels-photo-36772947.jpeg?cs=srgb&amp;fm=jpg&amp;w=601" alt="Sản phẩm tại quầy"><h3>Hàng khuyến mại</h3><div class="price-row"><span class="price">49.000đ</span><span class="qty">+1</span></div></article>
+          </div>
+        </div>
+
+        <aside class="panel pad">
+          <div class="section-head">
+            <div>
+              <h2>Đơn hiện tại</h2>
+              <p>Mã tạm: APF-1028</p>
+            </div>
+          </div>
+          <div class="cart-list">
+            <div class="cart-row"><div><strong>Rau ăn lá</strong><p class="muted">2kg x 38.000đ</p></div><strong>76.000đ</strong></div>
+            <div class="cart-row"><div><strong>Snack đóng gói</strong><p class="muted">3 gói x 29.000đ</p></div><strong>87.000đ</strong></div>
+            <div class="cart-row"><div><strong>Combo bữa nhanh</strong><p class="muted">1 phần x 89.000đ</p></div><strong>89.000đ</strong></div>
+          </div>
+          <div class="total-box">
+            <div class="total-row"><span>Tạm tính</span><strong>252.000đ</strong></div>
+            <div class="total-row"><span>Giảm giá</span><strong>12.000đ</strong></div>
+            <div class="total-row final"><span>Tổng thu</span><strong>240.000đ</strong></div>
+            <button class="btn primary" style="width:100%"><img class="icon" src="assets/icons/card.svg" alt="">Hoàn tất thanh toán</button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="panel" style="margin-top:18px">
+        <div class="section-head" style="padding:20px 20px 0">
+          <div>
+            <h2>Hóa đơn gần đây</h2>
+            <p>Các giao dịch mới nhất trong ca.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Mã đơn</th><th>Khách hàng</th><th>Giờ bán</th><th>Tổng tiền</th><th>Thanh toán</th></tr></thead>
+            <tbody>
+              <tr><td>APF-1027</td><td>Khách lẻ</td><td>10:24</td><td>184.000đ</td><td><span class="badge good">Thẻ</span></td></tr>
+              <tr><td>APF-1026</td><td>Minh Anh</td><td>10:18</td><td>96.000đ</td><td><span class="badge good">Tiền mặt</span></td></tr>
+              <tr><td>APF-1025</td><td>Văn phòng B12</td><td>10:02</td><td>640.000đ</td><td><span class="badge">Chuyển khoản</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <p class="source-note">Ảnh demo thật: Unsplash và Pexels. Icon: SVG nội bộ trong thư mục assets/icons.</p>
+    </main>
+  </div>
+</body>
+</html>

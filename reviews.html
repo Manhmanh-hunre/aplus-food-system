@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A+ Food | Đánh giá</title>
+  <link rel="stylesheet" href="assets/styles.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="Supabase.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="system.html"><span class="brand-mark">A+</span><span><strong>A+ Food</strong><span>Quản lý cửa hàng</span></span></a>
+      <nav class="nav">
+        <a href="system.html"><img class="icon" src="assets/icons/dashboard.svg" alt="">Hệ thống</a>
+        <a href="employees.html"><img class="icon" src="assets/icons/users.svg" alt="">Nhân viên</a>
+        <a href="menu.html"><img class="icon" src="assets/icons/menu.svg" alt="">Menu</a>
+        <a href="food-order.html"><img class="icon" src="assets/icons/orders.svg" alt="">Order đồ ăn</a>
+        <a href="invoices.html"><img class="icon" src="assets/icons/card.svg" alt="">Hóa đơn</a>
+        <a href="ingredient-stock.html"><img class="icon" src="assets/icons/inventory.svg" alt="">Kho nguyên liệu</a>
+        <a href="best-sellers.html"><img class="icon" src="assets/icons/reports.svg" alt="">Món bán chạy</a>
+        <a href="revenue-report.html"><img class="icon" src="assets/icons/reports.svg" alt="">Doanh thu</a>
+        <a href="permissions.html"><img class="icon" src="assets/icons/shield.svg" alt="">Phân quyền</a>
+        <a class="active" href="reviews.html"><img class="icon" src="assets/icons/message.svg" alt="">Đánh giá</a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div class="page-title"><h1>Chức năng đánh giá</h1><p>Theo dõi phản hồi khách hàng theo món, nhân viên và chi nhánh.</p></div><div class="actions"><select class="btn"><option>Tất cả đánh giá</option><option>Cần phản hồi</option></select></div></header>
+      <section class="grid cols-3">
+        <article class="panel stat"><span>Điểm trung bình</span><strong>4,6/5</strong><small>1.284 lượt đánh giá</small></article>
+        <article class="panel stat"><span>Cần phản hồi</span><strong>12</strong><small>Ưu tiên trong hôm nay</small></article>
+        <article class="panel stat"><span>Tỷ lệ hài lòng</span><strong>92%</strong><small>30 ngày gần nhất</small></article>
+      </section>
+      <section class="grid cols-2" style="margin-top:18px">
+        <article class="panel pad">
+          <div class="section-head"><div><h2>Phân bổ điểm</h2><p>Không dùng biểu tượng, chỉ hiển thị bằng thanh đo.</p></div></div>
+          <div class="rating-meter">
+            <div class="rating-row"><span>5 điểm</span><div class="bar-track"><div class="bar" style="width:78%"></div></div><strong>78%</strong></div>
+            <div class="rating-row"><span>4 điểm</span><div class="bar-track"><div class="bar" style="width:14%"></div></div><strong>14%</strong></div>
+            <div class="rating-row"><span>3 điểm</span><div class="bar-track"><div class="bar" style="width:5%"></div></div><strong>5%</strong></div>
+            <div class="rating-row"><span>2 điểm</span><div class="bar-track"><div class="bar" style="width:2%"></div></div><strong>2%</strong></div>
+            <div class="rating-row"><span>1 điểm</span><div class="bar-track"><div class="bar" style="width:1%"></div></div><strong>1%</strong></div>
+          </div>
+        </article>
+        <article class="panel pad">
+          <div class="section-head"><div><h2>Phản hồi mới</h2><p>Các nhận xét cần quản lý đọc trong ca.</p></div></div>
+          <div class="timeline">
+            <div class="timeline-item"><div class="timeline-time">12:10</div><div><strong>Phở bò A+ Food</strong><p class="muted">Khách khen nước dùng nóng, phục vụ nhanh.</p></div></div>
+            <div class="timeline-item"><div class="timeline-time">11:36</div><div><strong>Cơm gà sốt mè</strong><p class="muted">Góp ý phần rau ăn kèm cần nhiều hơn.</p></div></div>
+            <div class="timeline-item"><div class="timeline-time">10:52</div><div><strong>Order mang về</strong><p class="muted">Khách yêu cầu phản hồi về thời gian chờ.</p></div></div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

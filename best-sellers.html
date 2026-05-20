@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A+ Food | Thống kê món bán chạy</title>
+  <link rel="stylesheet" href="assets/styles.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>   
+  <script src="Supabase.js"></script>
+</head>
+
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="system.html"><span class="brand-mark">A+</span><span><strong>A+ Food</strong><span>Quản lý cửa hàng</span></span></a>
+      <nav class="nav">
+        <a href="system.html"><img class="icon" src="assets/icons/dashboard.svg" alt="">Hệ thống</a>
+        <a href="employees.html"><img class="icon" src="assets/icons/users.svg" alt="">Nhân viên</a>
+        <a href="menu.html"><img class="icon" src="assets/icons/menu.svg" alt="">Menu</a>
+        <a href="food-order.html"><img class="icon" src="assets/icons/orders.svg" alt="">Order đồ ăn</a>
+        <a href="invoices.html"><img class="icon" src="assets/icons/card.svg" alt="">Hóa đơn</a>
+        <a href="ingredient-stock.html"><img class="icon" src="assets/icons/inventory.svg" alt="">Kho nguyên liệu</a>
+        <a class="active" href="best-sellers.html"><img class="icon" src="assets/icons/reports.svg" alt="">Món bán chạy</a>
+        <a href="revenue-report.html"><img class="icon" src="assets/icons/reports.svg" alt="">Doanh thu</a>
+        <a href="permissions.html"><img class="icon" src="assets/icons/shield.svg" alt="">Phân quyền</a>
+        <a href="reviews.html"><img class="icon" src="assets/icons/message.svg" alt="">Đánh giá</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="page-title">
+          <h1>Thống kê món bán chạy</h1>
+          <p>Xếp hạng món theo số lượng bán, doanh thu và tỷ suất lợi nhuận từ cơ sở dữ liệu.</p>
+        </div>
+        <div class="actions">
+          <select class="btn">
+            <option>Hôm nay</option>
+            <option>7 ngày</option>
+            <option selected>Tháng này</option>
+          </select>
+        </div>
+      </header>
+
+      <section class="grid cols-3">
+        <article class="panel stat">
+          <span>Món bán nhiều nhất</span>
+          <strong id="widget-mon-top">--</strong>
+          <small id="widget-sl-top">0 phần</small>
+        </article>
+        <article class="panel stat">
+          <span>Tổng doanh thu nhóm món</span>
+          <strong id="widget-tong-doanhthu">--đ</strong>
+          <small>Cập nhật thời gian thực</small>
+        </article>
+        <article class="panel stat">
+          <span>Tăng trưởng doanh số</span>
+          <strong>18%</strong>
+          <small>So với tuần trước</small>
+        </article>
+      </section>
+
+      <section class="grid cols-2" style="margin-top:18px">
+        <article class="panel pad">
+          <div class="section-head">
+            <div>
+              <h2>Xếp hạng trực quan</h2>
+              <p>Tỷ lệ độ dài thanh biểu đồ tự động co giãn theo số lượng bán.</p>
+            </div>
+          </div>
+          <div class="bar-chart" id="js-bar-chart-container">
+            <p class="muted" style="padding: 10px 0;">Đang xử lý biểu đồ...</p>
+          </div>
+        </article>
+        
+        <article class="panel"><img class="feature-image" src="https://images.pexels.com/photos/34683316/pexels-photo-34683316.jpeg?cs=srgb&amp;fm=jpg&amp;w=1100" alt="Phở bò bán chạy"></article>
+      </section>
+
+      <section class="panel" style="margin-top:18px">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Hạng</th>
+                <th>Tên món ăn</th>
+                <th>Số lượng đã bán</th>
+                <th>Doanh thu</th>
+                <th>Lợi nhuận tạm tính</th>
+              </tr>
+            </thead>
+            <tbody id="bestseller-table-body">
+              </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      await taiThongKeBanChay();
+    });
+
+    async function taiThongKeBanChay() {
+      // 1. Gọi danh sách món từ bảng 'monan' và sắp xếp giảm dần theo số lượng bán
+      const { data: danhSachMon, error } = await supabase
+        .from('monan')
+        .select('*')
+        .order('soluongban', { ascending: false });
+
+      if (error) {
+        console.error("Lỗi khi tải dữ liệu thống kê món:", error.message);
+        return;
+      }
+
+      if (!danhSachMon || danhSachMon.length === 0) {
+        document.getElementById("js-bar-chart-container").innerHTML = "<p class='muted'>Chưa có dữ liệu bán hàng.</p>";
+        return;
+      }
+
+      // 2. Lấy thông số của món bán chạy nhất làm mốc chuẩn (Max) tính tỉ lệ % cho biểu đồ
+      const maxSoLuong = Number(danhSachMon[0].soluongban || 1);
+
+      // Cập nhật ngay số liệu vào Widget Top 1
+      document.getElementById("widget-mon-top").innerText = danhSachMon[0].tenmon;
+      document.getElementById("widget-sl-top").innerText = maxSoLuong + " phần";
+
+      let tongDoanhThu = 0;
+      let htmlTable = "";
+      let htmlChart = "";
+
+      // 3. Duyệt mảng dữ liệu để render ra giao diện
+      danhSachMon.forEach((mon, index) => {
+        const slBan = Number(mon.soluongban || 0);
+        const dThu = Number(mon.doanhthu || 0);
+        const lNhuan = Number(mon.loinhuan || 0);
+
+        tongDoanhThu += dThu;
+
+        // Tính % độ dài thanh dựa trên món cao nhất (Món cao nhất luôn đạt ~100% thanh)
+        const phanTramThanh = maxSoLuong > 0 ? (slBan / maxSoLuong) * 100 : 0;
+
+        // Vẽ biểu đồ thanh ngang (Tối đa hiển thị top 4 món trực quan nhất để tránh vỡ giao diện)
+        if (index < 4) {
+          htmlChart += `
+            <div class="bar-row">
+              <span>${mon.tenmon}</span>
+              <div class="bar-track">
+                <div class="bar" style="width: ${phanTramThanh}%"></div>
+              </div>
+              <strong>${slBan}</strong>
+            </div>
+          `;
+        }
+
+        // Tạo dòng dữ liệu cho bảng xếp hạng (Hiển thị đầy đủ tất cả các món)
+        htmlTable += `
+          <tr>
+            <td><strong>${index + 1}</strong></td>
+            <td><strong>${mon.tenmon}</strong></td>
+            <td>${slBan}</td>
+            <td>${dThu.toLocaleString('vi-VN')}đ</td>
+            <td>${lNhuan.toLocaleString('vi-VN')}đ</td>
+          </tr>
+        `;
+      });
+
+      // 4. Đổ toàn bộ chuỗi HTML động vào cấu trúc cây giao diện DOM
+      document.getElementById("bestseller-table-body").innerHTML = htmlTable;
+      document.getElementById("js-bar-chart-container").innerHTML = htmlChart;
+
+      // Định dạng tiền tệ VNĐ hiển thị lên Widget tổng doanh thu
+      document.getElementById("widget-tong-doanhthu").innerText = tongDoanhThu.toLocaleString('vi-VN') + "đ";
+    }
+  </script>
+</body>
+</html>

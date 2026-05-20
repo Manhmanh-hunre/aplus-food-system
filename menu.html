@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A+ Food | Quản lý Menu</title>
+  <link rel="stylesheet" href="assets/styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="Supabase.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="system.html"><span class="brand-mark">A+</span><span><strong>A+ Food</strong><span>Quản lý cửa hàng</span></span></a>
+      <nav class="nav">
+        <a href="system.html"><img class="icon" src="assets/icons/dashboard.svg" alt="">Hệ thống</a>
+        <a href="employees.html"><img class="icon" src="assets/icons/users.svg" alt="">Nhân viên</a>
+        <a class="active" href="menu.html"><img class="icon" src="assets/icons/menu.svg" alt="">Menu</a>
+        <a href="food-order.html"><img class="icon" src="assets/icons/orders.svg" alt="">Order đồ ăn</a>
+        <a href="invoices.html"><img class="icon" src="assets/icons/card.svg" alt="">Hóa đơn</a>
+        <a href="ingredient-stock.html"><img class="icon" src="assets/icons/inventory.svg" alt="">Kho nguyên liệu</a>
+        <a href="best-sellers.html"><img class="icon" src="assets/icons/reports.svg" alt="">Món bán chạy</a>
+        <a href="revenue-report.html"><img class="icon" src="assets/icons/reports.svg" alt="">Doanh thu</a>
+        <a href="permissions.html"><img class="icon" src="assets/icons/shield.svg" alt="">Phân quyền</a>
+        <a href="reviews.html"><img class="icon" src="assets/icons/message.svg" alt="">Đánh giá</a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="page-title"><h1>Quản lý Menu</h1><p>Cập nhật món ăn, giá bán, trạng thái mở bán và nhóm món.</p></div>
+        <div class="actions">
+          <label class="search"><img class="icon" src="assets/icons/search.svg" alt=""><input type="search" placeholder="Tìm món ăn"></label>
+          <button class="btn primary"><img class="icon" src="assets/icons/plus.svg" alt="">Thêm món</button>
+        </div>
+      </header>
+      
+      <section class="catalog">
+        <article class="panel product-card"><img src="https://www.wonderingvietnam.com/blog/wp-content/uploads/2025/07/l-intro-1659125110-1536x864.jpg" alt="Tô phở bò"><div class="body"><span class="badge good">Món nước</span><h3>Phở bò A+ Food</h3><p class="muted">Nước dùng bò, bánh phở, rau thơm.</p><div class="price-row"><span class="price">69.000đ</span><button class="btn compact">Sửa</button></div></div></article>
+        <article class="panel product-card"><img src="https://cdn.tgdd.vn/2022/01/CookRecipe/Avatar/com-ga-chien-xoi-mo-khong-can-chien-com-thumbnail.jpg" alt="Cơm gà"><div class="body"><span class="badge">Cơm phần</span><h3>Cơm gà sốt mè</h3><p class="muted">Cơm nóng, gà áp chảo, rau theo mùa.</p><div class="price-row"><span class="price">59.000đ</span><button class="btn compact">Sửa</button></div></div></article>
+        <article class="panel product-card"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&amp;fit=crop&amp;q=70&amp;w=900" alt="Salad rau củ"><div class="body"><span class="badge">Salad</span><h3>Salad rau củ tươi</h3><p class="muted">Rau xanh, sốt dầu giấm, topping hạt.</p><div class="price-row"><span class="price">49.000đ</span><button class="btn compact">Sửa</button></div></div></article> 
+        <article class="panel product-card"><img src="https://www.wonderingvietnam.com/blog/wp-content/uploads/2025/07/pngtree-banh-mi-vietnamese-sandwich-with-pickled-veggies-and-meat-image_17409206.jpg" alt="Bánh mì"><div class="body"><span class="badge good">Ăn nhanh</span><h3>Bánh mì thịt nướng</h3><p class="muted">Bánh mì giòn, thịt nướng than, pate, rau củ.</p><div class="price-row"><span class="price">35.000đ</span><button class="btn compact">Sửa</button></div></div></article>
+        <article class="panel product-card"><img src="https://www.wonderingvietnam.com/blog/wp-content/uploads/2025/07/090724-bun-cha-ha-noi-buffet-poseidon-thumb-1300x975.jpg" alt="Bún chả"><div class="body"><span class="badge good">Món bún</span><h3>Bún chả Hà Nội</h3><p class="muted">Thịt nướng chả viên, bún rối, nước mắm chua ngọt.</p><div class="price-row"><span class="price">55.000đ</span><button class="btn compact">Sửa</button></div></div></article>
+        <article class="panel product-card"><img src="https://www.wonderingvietnam.com/blog/wp-content/uploads/2025/07/banh-xeo-vang-uom-thom-ngat-ngay.jpg" alt="Bánh xèo"><div class="body"><span class="badge">Món bánh</span><h3>Bánh xèo miền Tây</h3><p class="muted">Vỏ bánh giòn rụm, nhân tôm thịt, giá đỗ, rau rừng.</p><div class="price-row"><span class="price">65.000đ</span><button class="btn compact">Sửa</button></div></div></article>
+        <article class="panel product-card"><img src="https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/485746gVp/anh-mo-ta.png" alt="Gỏi cuốn"><div class="body"><span class="badge">Khai vị</span><h3>Gỏi cuốn tôm thịt</h3><p class="muted">Bánh tráng, tôm, thịt luộc, bún, rau sống, mắm nêm.</p><div class="price-row"><span class="price">15.000đ</span><button class="btn compact">Sửa</button></div></div></article>
+        <article class="panel product-card"><img src="https://www.wonderingvietnam.com/blog/wp-content/uploads/2025/07/bun-bo-hue-1_1628650972.jpg" alt="Bún bò Huế"><div class="body"><span class="badge good">Món nước</span><h3>Bún bò Huế</h3><p class="muted">Nước dùng đậm đà, bún sợi to, nạm bò, chả cua.</p><div class="price-row"><span class="price">60.000đ</span><button class="btn compact">Sửa</button></div></div></article>
+        <article class="panel product-card"><img src="https://www.wonderingvietnam.com/blog/wp-content/uploads/2025/07/photo-3-16869665215031156850680.jpg" alt="Mì Quảng"><div class="body"><span class="badge good">Món nước</span><h3>Mì Quảng tôm thịt</h3><p class="muted">Sợi mì nghệ, tôm, thịt heo, trứng cút, bánh tráng nướng.</p><div class="price-row"><span class="price">50.000đ</span><button class="btn compact">Sửa</button></div></div></article>
+        <article class="panel product-card"><img src="https://res.klook.com/image/upload/fl_lossy.progressive,q_85/c_fill,w_1000/v1752074607/aj1jkbdkkv3w7j4oelic.webp" alt="Hủ tiếu"><div class="body"><span class="badge good">Món nước</span><h3>Hủ tiếu Nam Vang</h3><p class="muted">Sợi hủ tiếu dai, tôm, thịt băm, gan heo, trứng cút.</p><div class="price-row"><span class="price">55.000đ</span><button class="btn compact">Sửa</button></div></div></article>
+        <article class="panel product-card"><img src="https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/485746MbC/anh-mo-ta.png" alt="Bánh cuốn"><div class="body"><span class="badge">Món bánh</span><h3>Bánh cuốn nhân thịt</h3><p class="muted">Bánh ướt mỏng tráng tay, mộc nhĩ, thịt băm, hành phi.</p><div class="price-row"><span class="price">40.000đ</span><button class="btn compact">Sửa</button></div></div></article>
+        <article class="panel product-card"><img src="https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/485746Iwy/anh-mo-ta.png" alt="Bún riêu"><div class="body"><span class="badge good">Món nước</span><h3>Bún riêu cua đồng</h3><p class="muted">Nước dùng thanh vị cua, riêu cua, đậu hũ, cà chua.</p><div class="price-row"><span class="price">45.000đ</span><button class="btn compact">Sửa</button></div></div></article>
+        <article class="panel product-card"><img src="https://hanoireview.vn/wp-content/uploads/2025/10/cha-ca-la-vong-o-ha-noi-1761814840.jpg" alt="Chả cá"><div class="body"><span class="badge">Món chính</span><h3>Chả cá Lã Vọng</h3><p class="muted">Cá lăng nướng xém, thì là, hành hoa, mắm tôm nêm vừa.</p><div class="price-row"><span class="price">120.000đ</span><button class="btn compact">Sửa</button></div></div></article>
+      </section>
+      
+      <section class="panel" style="margin-top:18px">
+        <div class="section-head" style="padding:20px 20px 0">
+          <div><h2>Bảng menu</h2><p>Danh sách chi tiết các món đang cấu hình trong hệ thống.</p></div>
+        </div>
+        <div class="table-wrap" style="max-height: 400px; overflow-y: auto;">
+          <table>
+            <thead>
+              <tr><th>Món</th><th>Nhóm</th><th>Giá</th><th>Thời gian làm</th><th>Trạng thái</th></tr>
+            </thead>
+            <tbody id="menu-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+      <p class="source-note" style="margin-top: 18px;">Ảnh demo thật: Pexels và Unsplash.</p>
+    </main>
+  </div>
+  <script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    await taiDanhSachMenu();
+  });
+
+  async function taiDanhSachMenu() {
+    // Lấy dữ liệu từ bảng monan (viết thường)
+    const { data: danhSachMon, error } = await supabase
+      .from('monan')
+      .select('*')
+      .order('mamon', { ascending: true });
+
+    if (error) {
+      console.error("Lỗi:", error.message);
+      return;
+    }
+
+    const tbody = document.getElementById("menu-table-body");
+    let htmlContent = "";
+
+    danhSachMon.forEach(mon => {
+      // Chuẩn hóa badge theo dữ liệu trạng thái viết thường hoặc có dấu tùy bạn lưu trữ
+      const badgeClass = mon.trangthai === 'dangban' ? 'badge good' : 'badge';
+      const trangThaiHienThi = mon.trangthai === 'dangban' ? 'Đang bán' : 'Theo ca';
+
+      htmlContent += `
+        <tr>
+          <td><strong>${mon.tenmon}</strong></td>
+          <td>${mon.loaimon}</td>
+          <td>${Number(mon.giaban).toLocaleString('vi-VN')}đ</td>
+          <td>${mon.thoigianlam} phút</td>
+          <td><span class="${badgeClass}">${trangThaiHienThi}</span></td>
+        </tr>
+      `;
+    });
+
+    tbody.innerHTML = htmlContent;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A+ Food | Quản lý phân quyền</title>
+  <link rel="stylesheet" href="assets/styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="Supabase.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="system.html"><span class="brand-mark">A+</span><span><strong>A+ Food</strong><span>Quản lý cửa hàng</span></span></a>
+      <nav class="nav">
+        <a href="system.html"><img class="icon" src="assets/icons/dashboard.svg" alt="">Hệ thống</a>
+        <a href="employees.html"><img class="icon" src="assets/icons/users.svg" alt="">Nhân viên</a>
+        <a href="menu.html"><img class="icon" src="assets/icons/menu.svg" alt="">Menu</a>
+        <a href="food-order.html"><img class="icon" src="assets/icons/orders.svg" alt="">Order đồ ăn</a>
+        <a href="invoices.html"><img class="icon" src="assets/icons/card.svg" alt="">Hóa đơn</a>
+        <a href="ingredient-stock.html"><img class="icon" src="assets/icons/inventory.svg" alt="">Kho nguyên liệu</a>
+        <a href="best-sellers.html"><img class="icon" src="assets/icons/reports.svg" alt="">Món bán chạy</a>
+        <a href="revenue-report.html"><img class="icon" src="assets/icons/reports.svg" alt="">Doanh thu</a>
+        <a class="active" href="permissions.html"><img class="icon" src="assets/icons/shield.svg" alt="">Phân quyền</a>
+        <a href="reviews.html"><img class="icon" src="assets/icons/message.svg" alt="">Đánh giá</a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="page-title"><h1>Quản lý phân quyền</h1><p>Cấp quyền theo vai trò để kiểm soát thao tác trên hệ thống.</p></div>
+        <div class="actions"><button class="btn"><img class="icon" src="assets/icons/filter.svg" alt="">Sao chép vai trò</button><button class="btn primary"><img class="icon" src="assets/icons/plus.svg" alt="">Tạo vai trò</button></div>
+      </header>
+      <section class="grid cols-3">
+        <article class="panel stat"><span>Vai trò</span><strong>6</strong><small>3 vai trò hệ thống</small></article>
+        <article class="panel stat"><span>Tài khoản quản trị</span><strong>4</strong><small>Bắt buộc xác thực</small></article>
+        <article class="panel stat"><span>Thay đổi chờ duyệt</span><strong>2</strong><small>Áp dụng sau ca hiện tại</small></article>
+      </section>
+      <section class="panel" style="margin-top:18px">
+        <div class="section-head" style="padding:20px 20px 0"><div><h2>Ma trận quyền</h2><p>Dấu xanh thể hiện vai trò được phép sử dụng chức năng.</p></div></div>
+        <div class="permission-grid">
+          <table>
+            <thead><tr><th>Chức năng</th><th>Quản lý</th><th>Thu ngân</th><th>Bếp</th><th>Kho</th></tr></thead>
+            <tbody>
+              <tr><td>Quản lý nhân viên</td><td><span class="check-mark"></span></td><td><span class="empty-mark"></span></td><td><span class="empty-mark"></span></td><td><span class="empty-mark"></span></td></tr>
+              <tr><td>Quản lý menu</td><td><span class="check-mark"></span></td><td><span class="empty-mark"></span></td><td><span class="check-mark"></span></td><td><span class="empty-mark"></span></td></tr>
+              <tr><td>Order đồ ăn</td><td><span class="check-mark"></span></td><td><span class="check-mark"></span></td><td><span class="check-mark"></span></td><td><span class="empty-mark"></span></td></tr>
+              <tr><td>Quản lý hóa đơn</td><td><span class="check-mark"></span></td><td><span class="check-mark"></span></td><td><span class="empty-mark"></span></td><td><span class="empty-mark"></span></td></tr>
+              <tr><td>Kho nguyên liệu</td><td><span class="check-mark"></span></td><td><span class="empty-mark"></span></td><td><span class="empty-mark"></span></td><td><span class="check-mark"></span></td></tr>
+              <tr><td>Báo cáo doanh thu</td><td><span class="check-mark"></span></td><td><span class="empty-mark"></span></td><td><span class="empty-mark"></span></td><td><span class="empty-mark"></span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

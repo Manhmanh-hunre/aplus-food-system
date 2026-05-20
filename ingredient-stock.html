@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A+ Food | Kho nguyên liệu</title>
+  <link rel="stylesheet" href="assets/styles.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="Supabase.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="system.html"><span class="brand-mark">A+</span><span><strong>A+ Food</strong><span>Quản lý cửa hàng</span></span></a>
+      <nav class="nav">
+        <a href="system.html"><img class="icon" src="assets/icons/dashboard.svg" alt="">Hệ thống</a>
+        <a href="employees.html"><img class="icon" src="assets/icons/users.svg" alt="">Nhân viên</a>
+        <a href="menu.html"><img class="icon" src="assets/icons/menu.svg" alt="">Menu</a>
+        <a href="food-order.html"><img class="icon" src="assets/icons/orders.svg" alt="">Order đồ ăn</a>
+        <a href="invoices.html"><img class="icon" src="assets/icons/card.svg" alt="">Hóa đơn</a>
+        <a class="active" href="ingredient-stock.html"><img class="icon" src="assets/icons/inventory.svg" alt="">Kho nguyên liệu</a>
+        <a href="best-sellers.html"><img class="icon" src="assets/icons/reports.svg" alt="">Món bán chạy</a>
+        <a href="revenue-report.html"><img class="icon" src="assets/icons/reports.svg" alt="">Doanh thu</a>
+        <a href="permissions.html"><img class="icon" src="assets/icons/shield.svg" alt="">Phân quyền</a>
+        <a href="reviews.html"><img class="icon" src="assets/icons/message.svg" alt="">Đánh giá</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="page-title"><h1>Quản lý kho nguyên liệu</h1><p>Kiểm soát nhập xuất nguyên liệu, định mức món và cảnh báo tồn thấp.</p></div>
+        <div class="actions"><button class="btn"><img class="icon" src="assets/icons/filter.svg" alt="">Kiểm kê</button><button class="btn primary"><img class="icon" src="assets/icons/plus.svg" alt="">Phiếu nhập</button></div>
+      </header>
+
+      <section class="grid cols-3">
+        <article class="panel stat">
+          <span>Nguyên liệu</span>
+          <strong id="widget-tong-mat-hang">--</strong>
+          <small>Mặt hàng lưu trong danh mục</small>
+        </article>
+        <article class="panel stat">
+          <span>Cảnh báo tồn thấp</span>
+          <strong id="widget-ton-thap" style="color: #ea580c;">0</strong>
+          <small>Cần lên kế hoạch đặt hàng</small>
+        </article>
+        <article class="panel stat">
+          <span>Giá trị kho tạm tính</span>
+          <strong>118tr</strong>
+          <small>Kho bếp và kho khô</small>
+        </article>
+      </section>
+
+      <section class="grid cols-2" style="margin-top:18px">
+        <article class="panel"><img class="feature-image" src="https://images.pexels.com/photos/36866816/pexels-photo-36866816.jpeg?cs=srgb&amp;fm=jpg&amp;w=1200" alt="Kệ nguyên liệu trong bếp"></article>
+        
+        <article class="panel pad">
+          <div class="section-head"><div><h2>Nguyên liệu cần xử lý gấp</h2><p>Các mặt hàng đã hết hoặc chạm định mức tối thiểu.</p></div></div>
+          <div id="khan-cap-list">
+            <p class="muted" style="padding: 10px 0;">Đang kiểm tra dữ liệu kho...</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel" style="margin-top:18px">
+        <div class="section-head" style="padding:20px 20px 0"><div><h2>Bảng kho nguyên liệu</h2><p>Định mức tồn tối thiểu theo từng nguyên liệu đồng bộ từ Cloud.</p></div></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Mã NL</th>
+                <th>Nguyên liệu</th>
+                <th>Đơn vị</th>
+                <th>Tồn thực tế</th>
+                <th>Tối thiểu</th>
+                <th>Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody id="kho-table-body">
+              </tbody>
+          </table>
+        </div>
+      </section>
+      <p class="source-note">Ảnh demo thật: Pexels, ảnh kệ nguyên liệu.</p>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      await taiDuLieuKho();
+    });
+
+    async function taiDuLieuKho() {
+      // 1. Gọi dữ liệu từ bảng 'nguyenlieu' (viết thường giống cấu trúc DB của bạn)
+      const { data: danhSachNL, error } = await supabase
+        .from('nguyenlieu')
+        .select('*')
+        .order('manl', { ascending: true });
+
+      if (error) {
+        console.error("Lỗi khi kết nối kho Supabase:", error.message);
+        return;
+      }
+
+      // Khai báo các biến đếm và lưu trữ giao diện
+      let soLuongTonThap = 0;
+      let htmlTable = "";
+      let htmlKhanCap = "";
+
+      // 2. Duyệt qua từng nguyên liệu để kiểm tra định mức
+      danhSachNL.forEach(nl => {
+        const tonThucTe = Number(nl.ton || 0);
+        const mucToiThieu = Number(nl.toithieu || 0);
+
+        let trangThaiText = "Đủ";
+        let badgeClass = "badge good"; // Màu xanh lá mặc định
+
+        // Thuật toán kiểm tra điều kiện tồn kho
+        if (tonThucTe <= 0) {
+          trangThaiText = "Hết hàng";
+          badgeClass = "badge danger"; // Màu đỏ nguy hiểm
+          soLuongTonThap++;
+
+          // Đẩy vào danh sách cần xử lý gấp ở bên phải ảnh minh họa
+          htmlKhanCap += `
+            <div class="stock-row">
+              <div><strong>${nl.tennguyenlieu}</strong><p class="muted">Đã hết sạch trong kho bãi</p></div>
+              <span class="badge danger">Hết hàng</span>
+            </div>
+          `;
+        } else if (tonThucTe < mucToiThieu) {
+          trangThaiText = "Tồn thấp";
+          badgeClass = "badge"; // Màu vàng cam cảnh báo
+          soLuongTonThap++;
+
+          htmlKhanCap += `
+            <div class="stock-row">
+              <div><strong>${nl.tennguyenlieu}</strong><p class="muted">Còn ${tonThucTe} ${nl.donvi} (Mức sàn: ${mucToiThieu})</p></div>
+              <span class="badge">Còn ít</span>
+            </div>
+          `;
+        }
+
+        // Tạo dòng dữ liệu cho bảng tổng quan
+        htmlTable += `
+          <tr>
+            <td>${nl.manl}</td>
+            <td><strong>${nl.tennguyenlieu}</strong></td>
+            <td>${nl.donvi || ''}</td>
+            <td><strong>${tonThucTe}</strong></td>
+            <td>${mucToiThieu}</td>
+            <td><span class="${badgeClass}">${trangThaiText}</span></td>
+          </tr>
+        `;
+      });
+
+      // 3. Đổ dữ liệu đã xử lý vào các vùng hiển thị tương ứng trên UI
+      document.getElementById("kho-table-body").innerHTML = htmlTable;
+      
+      // Nếu không có món nào bị tồn thấp/hết hàng thì hiển thị thông báo an toàn
+      const khanCapContainer = document.getElementById("khan-cap-list");
+      if (htmlKhanCap === "") {
+        khanCapContainer.innerHTML = `
+          <div class="stock-row" style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 12px;">
+            <span style="color: #15803d; font-weight: 500;">✓ Toàn bộ kho ổn định, không có mặt hàng nào bị thiếu hụt.</span>
+          </div>
+        `;
+      } else {
+        khanCapContainer.innerHTML = htmlKhanCap;
+      }
+
+      // 4. Cập nhật các ô số liệu (Widgets) trên cùng của trang
+      document.getElementById("widget-tong-mat-hang").innerText = danhSachNL.length;
+      document.getElementById("widget-ton-thap").innerText = soLuongTonThap;
+    }
+  </script>
+</body>
+</html>
